@@ -2,8 +2,8 @@ import React, {useState} from 'react'
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 
-export default function CategoryBar() {
-   const [actCat, setActCat]=useState({});
+export default function CategoryBar({actCat, setActCat}) {
+
    const categories=[{id:1, name:'Sour'},{id:2,name:'Gummy'}, {id:3, name:'Chocolate'}] 
 
    const handleActCat = (cat) =>{

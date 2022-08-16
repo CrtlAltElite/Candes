@@ -29,16 +29,7 @@ const FormSchema = Yup.object(
 
 const categories=[{id:1, name:'Sour'},{id:2,name:'Gummy'}, {id:3, name:'Chocolate'}] 
 
-export default function CatForm({item={
-    "id":2,
-    "name":"itemB",
-    "desc":"itemB is good",
-    "price":12.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":1,
-    "category_name":'Sour'
-  }
-}) {
+export default function ItemForm({item}) {
     const initialValues={
         name:item?.name ?? '',
         desc: item?.desc ??'',
