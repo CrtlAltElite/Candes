@@ -23,7 +23,7 @@ const items=[{
     "category_id":1,
     "category_name":'Sour'
   },{
-    "id":1,
+    "id":3,
     "name":"itemA",
     "desc":"itemA is good",
     "price":9.99,
@@ -31,7 +31,7 @@ const items=[{
     "category_id":1,
     "category_name":'Sour'
   },{
-    "id":1,
+    "id":4,
     "name":"itemA",
     "desc":"itemA is good",
     "price":9.99,
@@ -39,7 +39,7 @@ const items=[{
     "category_id":1,
     "category_name":'Sour'
   },{
-    "id":1,
+    "id":5,
     "name":"itemA",
     "desc":"itemA is good",
     "price":9.99,

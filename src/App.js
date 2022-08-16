@@ -14,13 +14,13 @@ import Login from "./views/Login.js"
 import AdminCategory from './views/AdminCategory';
 import AdminItem from './views/AdminItem';
 import Shop from './views/Shop';
-
+import Cart from './components/Cart/Index';
+import CartPage from './views/CartPage';
 function App() {
   return (
 
     <NavBar>
-      <Shop/>
-      <AdminMenu/> 
+      <CartPage/> 
     </NavBar>
   );
 }
