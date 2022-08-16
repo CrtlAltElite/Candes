@@ -9,17 +9,19 @@ import LoginForm from './forms/LoginForm';
 import CatForm from './forms/CatForm';
 import ItemForm from './forms/ItemForm';
 import AdminSelectCat from './components/AdminSelectCat';
-
+import AdminSelectItem from './components/AdminSelectItem';
+import Login from "./views/Login.js"
+import AdminCategory from './views/AdminCategory';
+import AdminItem from './views/AdminItem';
+import Shop from './views/Shop';
+import Cart from './components/Cart/Index';
+import CartPage from './views/CartPage';
 function App() {
   return (
-    <>
-    <NavBar>
-     
-      <AdminSelectCat/>
 
-      <AdminMenu/> 
+    <NavBar>
+      <CartPage/> 
     </NavBar>
-    </>
   );
 }
 
