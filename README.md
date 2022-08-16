@@ -20,6 +20,6 @@ To see the versions at the end of its respective day:
 ## To update your version with a newer version on github
 * `git pull --all`
 
-# To run the app from the CLI inside the app folder (Candes):
+## To run the app from the CLI inside the app folder (Candes):
 * `npm install` just once
 * `npm start`
