@@ -4,6 +4,7 @@ import { useFormik } from 'formik'
 import TextField from '@mui/material/TextField'
 import Button from '../components/Button'
 import { FormHelperText, FormControl, InputLabel, Select, MenuItem } from '@mui/material'
+import useCategories from '../hooks/useCategories'
 
 const FormSchema = Yup.object(
     {
@@ -27,9 +28,12 @@ const FormSchema = Yup.object(
 //     "category_name":'Sour'
 //   }
 
-const categories=[{id:1, name:'Sour'},{id:2,name:'Gummy'}, {id:3, name:'Chocolate'}] 
+// const categories=[{id:1, name:'Sour'},{id:2,name:'Gummy'}, {id:3, name:'Chocolate'}] 
 
 export default function ItemForm({item}) {
+
+    const{categories, error}=useCategories()
+
     const initialValues={
         name:item?.name ?? '',
         desc: item?.desc ??'',
@@ -123,7 +127,7 @@ export default function ItemForm({item}) {
             >
                 <MenuItem value={0}><em>None</em></MenuItem>
 
-                {categories.map((cat)=>(
+                {categories?.map((cat)=>(
                     <MenuItem key={cat.id} value={cat.id}>{cat.name} | {cat.id}</MenuItem>
                 ))}
 

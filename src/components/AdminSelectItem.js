@@ -6,31 +6,33 @@ import Select from '@mui/material/Select';
 import  MenuItem  from '@mui/material/MenuItem';
 import  Typography  from '@mui/material/Typography';
 import ItemForm from '../forms/ItemForm';
+import useItems from '../hooks/useItems';
+import Error from './Error';
 
 
-const items=[{
-    "id":2,
-    "name":"itemB",
-    "desc":"itemB is good",
-    "price":12.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":1,
-    "category_name":'Sour'
-  },{
-    "id":1,
-    "name":"itemA",
-    "desc":"itemA is good",
-    "price":9.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":2,
-    "category_name":'Gummy'
-  }
+// const items=[{
+//     "id":2,
+//     "name":"itemB",
+//     "desc":"itemB is good",
+//     "price":12.99,
+//     "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
+//     "category_id":1,
+//     "category_name":'Sour'
+//   },{
+//     "id":1,
+//     "name":"itemA",
+//     "desc":"itemA is good",
+//     "price":9.99,
+//     "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
+//     "category_id":2,
+//     "category_name":'Gummy'
+//   }
 
-]
+// ]
 export default function AdminSelectItem() {
 
     const [item, setItem] =useState('')
-
+    const {items, error} = useItems()
     const handleChange=(event)=>{
         console.log(event.target.value)
         if(event.target.value === 'default'){
@@ -39,7 +41,7 @@ export default function AdminSelectItem() {
         }else {
             console.log('in else') 
             // look up cat with that id and thats the cat we want to edit
-            const newItem=items.filter((i)=>i.id===event.target.value)[0]
+            const newItem=items?.filter((i)=>i.id===event.target.value)[0]
             console.log(newItem,'selected')
 
             setItem(newItem)
@@ -62,10 +64,11 @@ export default function AdminSelectItem() {
                 >
                     <MenuItem value="default"><em>Select Item To Edit</em></MenuItem>
 
-                    {items.map((i)=>(
+                    {items?.map((i)=>(
                         <MenuItem key={i.id} value={i.id}>{i.name}</MenuItem>
                     ))}
                 </Select>
+                <Error>{error}</Error>
         </FormControl>
 
         {

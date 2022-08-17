@@ -23,6 +23,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { AppContext } from '../context/AppContext';
 
 const drawerWidth = 240;
 
@@ -94,7 +95,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   );
   
   export default function NavBar({children}) {
-    const theme = useTheme();
+  const theme = useTheme();
+  const {user} = React.useContext(AppContext);
   const [open, setOpen] = React.useState(false);
   
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -132,7 +134,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
           >
             <IcecreamTwoToneIcon />
           </IconButton>
-          <Box sx={{mr:3, ...(open&&{display:'none'})}}>
+          <Box sx={{mr:3, flexGrow:1,...(open&&{display:'none'})}}>
             <Link to="/">
               <img alt="Candes Logo" style={{maxHeight: '60px'}} className='p2' src="https://res.cloudinary.com/cae67/image/upload/v1660377217/candeslogo5_xm5519.png"/>
             </Link>
@@ -141,7 +143,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+
+              {
+                user?.icon?
+                <Avatar alt={user.first_name}src={`https://avatars.dicebear.com/api/avataaars/${user.icon}.svg`} />
+                :
                 <Avatar alt="Please Login" src={`https://avatars.dicebear.com/api/avataaars/${new Date().getDay()}.svg`} />
+              }
               </IconButton>
             </Tooltip>
             <Menu
@@ -160,21 +168,25 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-     
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">
-                  Logout
-                </Typography>
-              </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
-              <Link to='/login' style={{textDecoration: 'none', color:'black'}}>
-                <Typography textAlign="center">
-                  Login
-                </Typography>
-              </Link>
+              {user?
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link to='/logout' style={{textDecoration: 'none', color:'black'}}>
 
-              </MenuItem>
-       
+                    <Typography textAlign="center">
+                      Logout
+                    </Typography>
+                  </Link>
+
+                </MenuItem>
+              :
+                <MenuItem onClick={handleCloseUserMenu}>
+                <Link to='/login' style={{textDecoration: 'none', color:'black'}}>
+                  <Typography textAlign="center">
+                    Login
+                  </Typography>
+                </Link>
+                </MenuItem>
+              }
             </Menu>
           </Box>
         </Toolbar> 
