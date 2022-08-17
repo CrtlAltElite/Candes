@@ -1,10 +1,16 @@
-import React, {useState} from 'react'
+import React from 'react'
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 
+import { Box } from '@mui/system';
+import Error from './Error';
+import { CircularProgress } from '@mui/material';
+import useCategories from '../hooks/useCategories';
+
 export default function CategoryBar({actCat, setActCat}) {
 
-   const categories=[{id:1, name:'Sour'},{id:2,name:'Gummy'}, {id:3, name:'Chocolate'}] 
+
+    const {categories, error} = useCategories();
 
    const handleActCat = (cat) =>{
        if(actCat.id === cat.id){
@@ -13,7 +19,24 @@ export default function CategoryBar({actCat, setActCat}) {
            setActCat(cat)
        }
    }
+
    
+   if (!categories){
+    return (
+        <Box sx={{ display:"flex"}}>
+            <CircularProgress/>
+        </Box>
+    )
+} 
+   if (error){
+       return (
+           <Box sx={{ display:"flex"}}>
+               <Error>{error}</Error>
+           </Box>
+       )
+   } 
+
+
   return (
     <Stack direction="row" spacing={1}>
      

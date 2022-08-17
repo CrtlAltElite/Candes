@@ -13,7 +13,7 @@ export default function Shop() {
         <CategoryBar actCat={actCat} setActCat={setActCat}/>
     </Box>
     <Box sx={{minWidth:"300px", maxWidth:'1000px', display:"flex",  mx:"auto" }}>
-        <ItemBrowser category_id={actCat?.id}/>
+        <ItemBrowser categoryID={actCat?.id}/>
     </Box>
     </>
   )

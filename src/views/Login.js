@@ -16,7 +16,6 @@ export default function Login() {
         maxWidth:"1000px",
         mx:"auto"
     }}>
-        {console.log(theme)}
         <Typography variant="h4"> Login </Typography>
         <LoginForm/>
     </Paper>

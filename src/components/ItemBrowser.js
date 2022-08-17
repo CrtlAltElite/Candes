@@ -5,55 +5,34 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
 import AddShoppingCartTwoToneIcon from '@mui/icons-material/AddShoppingCartTwoTone';
 import InfoIcon from '@mui/icons-material/Info';
+import { Box } from '@mui/system';
+import Error from './Error';
+import { CircularProgress } from '@mui/material';
+import useItems from '../hooks/useItems';
 
-const items=[{
-    "id":2,
-    "name":"itemB",
-    "desc":"itemB is good",
-    "price":12.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":1,
-    "category_name":'Sour'
-  },{
-    "id":1,
-    "name":"itemA",
-    "desc":"itemA is good",
-    "price":9.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":1,
-    "category_name":'Sour'
-  },{
-    "id":3,
-    "name":"itemA",
-    "desc":"itemA is good",
-    "price":9.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":1,
-    "category_name":'Sour'
-  },{
-    "id":4,
-    "name":"itemA",
-    "desc":"itemA is good",
-    "price":9.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":1,
-    "category_name":'Sour'
-  },{
-    "id":5,
-    "name":"itemA",
-    "desc":"itemA is good",
-    "price":9.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":1,
-    "category_name":'Sour'
-  }
 
-]
-
-export default function ItemBrowser({category_id}) {
+export default function ItemBrowser({categoryID}) {
+    const {error, items} =useItems(categoryID)
+    
     const handleAddToCart = (item) =>{
         console.log("added", item.name, "to cart")
     }
+
+   if (!items){
+    return (
+        <Box sx={{ display:"flex"}}>
+            <CircularProgress/>
+        </Box>
+    )
+} 
+   if (error){
+       return (
+           <Box sx={{ display:"flex"}}>
+               <Error>{error}</Error>
+           </Box>
+       )
+   } 
+
 
   return (
     <ImageList cols={3}>
