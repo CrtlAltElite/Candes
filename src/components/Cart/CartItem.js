@@ -65,7 +65,7 @@ export default function CartItem({item}) {
     const [qty, setQty] = useState(cart.filter((cartItem)=>cartItem.id===item.id).length)
 
   return (
-    <Grid container spacing={2} sx={{m:1, pr:2, borderRadius:1, alignItems:"stretch"}}>
+    <Grid container spacing={2} sx={{m:1, pr:2, borderRadius:1, alignItems:"strech"}}>
         <Grid item md={4} sm={6} xs={12}>
             <Item sx={{height:'100%'}}>
                 <Avatar alt={item.name} variant="rounded" src={item.img} sx={{height:'100%', width:'100%'}} />
@@ -76,8 +76,8 @@ export default function CartItem({item}) {
                 <CartCard item={item}/>
             </Item>
         </Grid>
-        <Grid item md={2} sm={6} xs={12}>
-            <Item sx={{height:'100%'}}>
+        <Grid item md={2} sm={6} xs={12} >
+            <Item sx={{height:'100%', justifySelf:'center'}}>
                 <ChangeCartItemQuantity item={item} qty={qty}/>
             </Item>
         </Grid>
