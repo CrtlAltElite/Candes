@@ -1,10 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import TextField from '@mui/material/TextField'
 import Button from '../components/Button'
 import { FormHelperText, FormControl, InputLabel, Select, MenuItem } from '@mui/material'
 import useCategories from '../hooks/useCategories'
+import useCreate from '../hooks/useCreate'
+import useDelete from '../hooks/useDelete'
+import useEdit from '../hooks/useEdit'
 
 const FormSchema = Yup.object(
     {
@@ -32,7 +35,17 @@ const FormSchema = Yup.object(
 
 export default function ItemForm({item}) {
 
+
     const{categories, error}=useCategories()
+
+    const [newItem, setNewItem] = useState()
+    const [delItem, setDelItem] = useState()
+    const [editItem, setEditItem] = useState()
+    useCreate(newItem)
+    useDelete(delItem)
+    useEdit(item?.id, editItem)
+
+
 
     const initialValues={
         name:item?.name ?? '',
@@ -44,14 +57,17 @@ export default function ItemForm({item}) {
     }
     const handleSubmit=(values, resetForm)=>{
         if (item){
+            setEditItem(values)
             console.log("editing", values)
         }else{
+            setNewItem(values)
             console.log("creating", values)
         }
         resetForm(initialValues)
     }
 
     const handleDelete=()=>{
+        setDelItem(item)
         console.log('deleting item: ', item.name )
     }
 

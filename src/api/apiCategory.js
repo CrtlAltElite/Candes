@@ -19,36 +19,42 @@ const get = async (cancelToken) =>{
 }
 
 
-const post = async (token, catName, cancelToken) =>{
+const post = async (token, cat, cancelToken) =>{
     let error
-    const response = await apiClientTokenAuth(token, cancelToken).post(endpoint, {name: catName})
-    if (!response.ok){
+    const response = await apiClientTokenAuth(token, cancelToken).post(endpoint, {name: cat.name})
+    if (!response.status || response.status>500 ){
         error = "An Unexpected Error Occurred.  Please Try Again Later"  
+    }
+    else if (response.status && response.status<500 && response.status>299){
+        error = "Please reauthorize you account"  
+
     }
     return {
         error
     }
 }
 
-const put = async (token, id, catName, cancelToken) =>{
+const put = async (token, id, cat, cancelToken) =>{
     let error
-    const response = await apiClientTokenAuth(token, cancelToken).put(endpoint+'/'+id, {name: catName})
-    if (!response.ok){
+    const response = await apiClientTokenAuth(token, cancelToken).put(endpoint+'/'+id, cat)
+    if (!response.status || response.status>500 ){
         error = "An Unexpected Error Occurred.  Please Try Again Later"  
     }
-    return {
-        error
+    else if (response.status && response.status<500  && response.status>299){
+        error = "Please reauthorize you account"  
+
     }
 }
 
 const del = async (token, id, cancelToken) =>{
     let error
     const response = await apiClientTokenAuth(token, cancelToken).delete(endpoint+'/'+id)
-    if (!response.ok){
+    if (!response.status || response.status>500 ){
         error = "An Unexpected Error Occurred.  Please Try Again Later"  
     }
-    return {
-        error
+    else if (response.status<500  && response.status>299){
+        error = "Please reauthorize you account"  
+
     }
 }
 

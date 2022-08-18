@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import TextField from '@mui/material/TextField'
 import Button from '../components/Button'
+import useCreate from '../hooks/useCreate'
+import useDelete from '../hooks/useDelete'
+import useEdit from '../hooks/useEdit'
 
 const FormSchema = Yup.object(
     {
@@ -10,26 +13,33 @@ const FormSchema = Yup.object(
         
     }
 )
-
-
-
-
 // ={id:1, name:'Sour'}
 export default function CatForm({ category  }) {
+    const [newCat, setNewCat] = useState()
+    const [delCat, setDelCat] = useState()
+    const [editCat, setEditCat] = useState()
+    useCreate(newCat)
+    useDelete(delCat)
+    useEdit(category?.id, editCat)
+
+
     const initialValues={
         name:category?.name ?? '',
     }
 
     const handleSubmit=(values, resetForm)=>{
         if(category){
+            setEditCat(values)
             console.log("Editing ",values)
         }else{
             console.log("Creating ",values)
+            setNewCat(values)
         }
         resetForm(initialValues)
     }
 
     const handleDelete=()=>{
+        setDelCat(category)
         console.log('deleting category: ', category.name )
     }
 
