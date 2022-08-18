@@ -4,6 +4,11 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import  Avatar  from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import {useParams} from 'react-router-dom';
+import useSingleItem from '../hooks/useSingleItem';
+import { Box } from '@mui/system';
+import Error from './Error';
+import { CircularProgress } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -13,24 +18,32 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-
 export default function MyItem() {
-    const item={
-        "id":2,
-        "name":"itemB",
-        "desc":"itemB is good",
-        "price":12.99,
-        "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-        "category_id":1,
-        "category_name":'Sour'
-      }
-
+  const {itemId} = useParams();
+  
+  
+  const {item, error} = useSingleItem(itemId)
+  
+  if (!item){
+    return (
+        <Box sx={{ display:"flex"}}>
+            <CircularProgress/>
+        </Box>
+    )
+  } 
+   if (error){
+       return (
+           <Box sx={{ display:"flex"}}>
+               <Error>{error}</Error>
+           </Box>
+       )
+   } 
   return (
 
       <Grid container spacing={1} sx={{m:1, pr:2, border:'1px solid', borderRadius:1}}>
         <Grid item sm={12} xs={12}  md={12}>
           <Item sx={{display:"flex", justifyContent: 'center'}}>
-             <Avatar alt={item.name} sx={{height:'30%', width:'30%'}} variant="rounded"/>
+             <Avatar src={item.img} alt={item.name} sx={{height:'30%', width:'30%'}} variant="rounded"/>
           </Item>
         </Grid>
         <Grid item sm={12} xs={12}  md={12}>

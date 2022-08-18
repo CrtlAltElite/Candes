@@ -9,11 +9,12 @@ import { Box } from '@mui/system';
 import Error from './Error';
 import { CircularProgress } from '@mui/material';
 import useItems from '../hooks/useItems';
-
+import { useNavigate } from 'react-router-dom';
 
 export default function ItemBrowser({categoryID}) {
     const {error, items} =useItems(categoryID)
-    
+    const navigate= useNavigate()
+
     const handleAddToCart = (item) =>{
         console.log("added", item.name, "to cart")
     }
@@ -43,7 +44,7 @@ export default function ItemBrowser({categoryID}) {
                 title={item.name}
                 subtitle={'$'+item.price.toFixed(2)}
                 actionIcon={<>
-                    <IconButton sx={{ color: 'rgba(255, 255, 255, 0.54)' }} aria-label={`info about ${item.title}`} onClick={()=>console.log('get more info')}>
+                    <IconButton sx={{ color: 'rgba(255, 255, 255, 0.54)' }} aria-label={`info about ${item.title}`} onClick={()=>navigate(`/shop/${item.id}`)}>
                         <InfoIcon/>
                     </IconButton>
                     <IconButton sx={{ color: 'rgba(255, 255, 255, 0.54)' }} aria-label={`info about ${item.title}`} onClick={()=>handleAddToCart(item)}>
