@@ -1,10 +1,11 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import  Avatar  from '@mui/material/Avatar';
 import ChangeCartItemQuantity from './ChangeCartItemQuantity';
 import CartCard from './CartCard';
+import { AppContext } from '../../context/AppContext';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -15,49 +16,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function CartItem({item}) {
-  const cart = [{
-    "id":2,
-    "name":"itemB",
-    "desc":"itemB is good",
-    "price":12.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":1,
-    "category_name":'Sour'
-  },{
-    "id":1,
-    "name":"itemA",
-    "desc":"itemA is good",
-    "price":9.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":1,
-    "category_name":'Sour'
-  },{
-    "id":1,
-    "name":"itemA",
-    "desc":"itemA is good",
-    "price":9.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":1,
-    "category_name":'Sour'
-  },{
-    "id":4,
-    "name":"hey",
-    "desc":"itemA is good",
-    "price":9.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":1,
-    "category_name":'Sour'
-  },{
-    "id":5,
-    "name":"another item",
-    "desc":"itemA is good",
-    "price":9.99,
-    "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-    "category_id":1,
-    "category_name":'Sour'
-  }
+  const {cart} = useContext(AppContext)
 
-]
     useEffect(()=>{ 
         setQty(cart.filter((cartItem)=>cartItem.id===item.id).length)
         }, [cart, item])

@@ -1,17 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {useTheme} from '@mui/material/styles'
 import { InputLabel, FormControl, Select, MenuItem } from '@mui/material'
+import { AppContext } from '../../context/AppContext'
 
 const range = (x) => [...Array(x).keys()]
 
 export default function ChangeCartItemQuantity({item, qty}) {
   const theme = useTheme()
-  
+  const {removeAllFromCart, addBulkToCart} = useContext(AppContext)
 
 
   const handleChange=(event)=>{
-    //removeAllFromtheCart(item)
-    // addBulkToCart(Array(event.target.value).fill(item))
+    removeAllFromCart(item)
+    addBulkToCart(Array(event.target.value).fill(item))
     console.log("qty changed", event.target.value)
   }
 

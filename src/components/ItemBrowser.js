@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
@@ -10,13 +10,20 @@ import Error from './Error';
 import { CircularProgress } from '@mui/material';
 import useItems from '../hooks/useItems';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../context/AppContext';
 
 export default function ItemBrowser({categoryID}) {
     const {error, items} =useItems(categoryID)
+    const {addToCart, setAlert} = useContext(AppContext)
+
     const navigate= useNavigate()
 
     const handleAddToCart = (item) =>{
         console.log("added", item.name, "to cart")
+        addToCart(item)
+        setAlert({msg:`You have added ${item.name} to your cart`, cat:'success'})
+
+
     }
 
    if (!items){
