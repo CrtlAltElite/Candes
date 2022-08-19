@@ -24,6 +24,8 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { AppContext } from '../context/AppContext';
+import Badge from '@mui/material/Badge';
+
 
 const drawerWidth = 240;
 
@@ -96,7 +98,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   
   export default function NavBar({children}) {
   const theme = useTheme();
-  const {user} = React.useContext(AppContext);
+  const {user, cart} = React.useContext(AppContext);
   const [open, setOpen] = React.useState(false);
   
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -117,6 +119,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     setOpen(false);
   };
   
+
+  const menuChoices =  [
+    {label:'Cart', path:'/cart', icon: <Badge badgeContent={cart?.length} color="primary"><ShoppingCartIcon sx={{color:'white'}}/> </Badge>},
+    {label:'Shop', path:'/shop', icon:<StorefrontTwoTone  sx={{color:'white'}}/>}
+  ]
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -202,10 +210,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
           <Divider />
           <List>
             {
-            [
-              {label:'Cart', path:'/cart', icon:<ShoppingCartIcon sx={{color:'white'}}/>},
-              {label:'Shop', path:'/shop', icon:<StorefrontTwoTone  sx={{color:'white'}}/>}
-            ].map((navItem, index) => (
+           menuChoices.map((navItem, index) => (
               <ListItem key={navItem.label} disablePadding sx={{ display: 'block', ml:2, mb:2 }}>
                 <div style={{display:"flex", marginTop:"20px"}}>
                   <Link to={navItem.path} style={{display:"flex", color: 'inherit', textDecoration: 'none'}}>
