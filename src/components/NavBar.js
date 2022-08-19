@@ -25,6 +25,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { AppContext } from '../context/AppContext';
 import Badge from '@mui/material/Badge';
+import  MUILink  from '@mui/material/Link';
+import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 
 
 const drawerWidth = 240;
@@ -228,6 +230,23 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
                 </div>
               </ListItem>
             ))}
+              <ListItem  disablePadding sx={{ display: 'block', ml:2, mb:2 }}>
+                <div style={{display:"flex", marginTop:"20px"}}>
+                  <MUILink href='/home' color="inherit" underline="none" sx={{display:"flex"}}>
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <ConnectWithoutContactIcon style={{color:'white'}}/>
+                    </ListItemIcon>
+                  <ListItemText primary={"Social"} sx={{ opacity: open ? 1 : 0 }} />
+                  </MUILink>
+                </div>
+              </ListItem>
+
           </List>
         { open ?
           <ListItem sx={{position:"absolute", bottom:"0px", alignContent:"center", justifyContent:"center"}}>
